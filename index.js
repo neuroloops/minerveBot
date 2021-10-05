@@ -7,6 +7,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET
 const BOT_TOKEN = process.env.BOT_TOKEN
 
 const Discord = require('discord.js')
+const menu = ['fabrication', 'transformation', 'exploitation']
 
 const prefix = '!'
 
@@ -18,6 +19,19 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
+const listMenu = message => {
+  const items = []
+
+  menu.map(item => {
+    const index = menu.indexOf(item)
+    const temp = `${index}: ${item} `
+
+    items.push(temp)
+  })
+  const menuWithIndex = items.join('')
+  message.reply(`${menuWithIndex}`)
+}
+
 client.on('message', function (message) {
   if (message.author.bot) return
   if (!message.content.startsWith(prefix)) return
@@ -27,7 +41,8 @@ client.on('message', function (message) {
   const command = args.shift().toLowerCase()
 
   if (command === 'who') {
-    message.reply(`salut ${message.member.nickname}`)
+    listMenu(message)
+    // message.reply(`salut ${message.member.nickname} ${listMenu} `)
   } else if (command === 'command') {
     message.reply(`1: fabrication, 2: transformation, 3: exploitation`)
   } else if (command === 'liste:1') {
