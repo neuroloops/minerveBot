@@ -1,13 +1,10 @@
 require('dotenv').config()
 require('./getView')
 
+const { listMenu } = require('./menu')
 const { Client, Intents } = require('discord.js')
-const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET
-const BOT_TOKEN = process.env.BOT_TOKEN
 
-const Discord = require('discord.js')
-const menu = ['fabrication', 'transformation', 'exploitation']
+const BOT_TOKEN = process.env.BOT_TOKEN
 
 const prefix = '!'
 
@@ -19,19 +16,6 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-const listMenu = message => {
-  const items = []
-
-  menu.map(item => {
-    const index = menu.indexOf(item)
-    const temp = `${index}: ${item} `
-
-    items.push(temp)
-  })
-  const menuWithIndex = items.join('')
-  message.reply(`${menuWithIndex}`)
-}
-
 client.on('message', function (message) {
   if (message.author.bot) return
   if (!message.content.startsWith(prefix)) return
@@ -40,17 +24,14 @@ client.on('message', function (message) {
   const args = commandBody.split(' ')
   const command = args.shift().toLowerCase()
 
-  if (command === 'who') {
-    listMenu(message)
-    // message.reply(`salut ${message.member.nickname} ${listMenu} `)
-  } else if (command === 'command') {
-    message.reply(`1: fabrication, 2: transformation, 3: exploitation`)
-  } else if (command === 'liste:1') {
-    getView(message, 'Fabrication')
-  } else if (command === 'liste:2') {
-    getView(message, 'Transformation')
-  } else if (command === 'liste:3') {
-    getView(message, 'Exploitation')
+  if (+command > 0) {
+    getView(message, command)
+  } else {
+    message.reply(
+      `salut ${
+        message.member.nickname
+      } les commandes disponible sont \n ${listMenu(message)}`
+    )
   }
 })
 client.login(BOT_TOKEN)
