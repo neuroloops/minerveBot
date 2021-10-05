@@ -15,7 +15,7 @@ module.exports = getView = (message, view) => {
         records.forEach(function (record) {
           items.push(`${record.get('Name')} : [${record.get('Artisanat')}]  \n`)
         })
-        message.reply(`${items}`)
+        message.reply(`${items.join('')}`)
         fetchNextPage()
       },
       function done(err) {
