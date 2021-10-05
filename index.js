@@ -25,9 +25,40 @@ client.on('message', function (message) {
   const command = args.shift().toLowerCase()
 
   if (command === 'who') {
-    const { nickname } = message.author
-
     message.reply(`salut ${message.member.nickname}`)
+  } else if (command === 'command') {
+    message.reply(`1: fabrication, 2: transformation, 3: exploitation`)
+  } else if (command === 'liste:1') {
+    fabrication(message, 'Fabrication')
+  } else if (command === 'liste:2') {
+    fabrication(message, 'Transformation')
+  } else if (command === 'liste:3') {
+    fabrication(message, 'Exploitation')
   }
 })
 client.login(BOT_TOKEN)
+
+const base = require('airtable').base(process.env.AIRTABLE_TABLE)
+
+const fabrication = (message, view) =>
+  base('Table 1')
+    .select({
+      view,
+      fields: ['Name', 'Artisanat'],
+    })
+    .eachPage(
+      function page(records, fetchNextPage) {
+        const items = []
+        records.forEach(function (record) {
+          items.push(`${record.get('Name')} : [${record.get('Artisanat')}]  \n`)
+        })
+        message.reply(`${items}`)
+        fetchNextPage()
+      },
+      function done(err) {
+        if (err) {
+          console.error(err)
+          return
+        }
+      }
+    )
