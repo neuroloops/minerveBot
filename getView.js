@@ -13,6 +13,7 @@ module.exports = getView = (message, view) => {
       function page(records, fetchNextPage) {
         const items = []
         records.forEach(function (record) {
+          console.log(record.getId())
           items.push(`${record.get('Name')} : [${record.get('Artisanat')}]  \n`)
         })
         message.reply(`${items.join('')}`)

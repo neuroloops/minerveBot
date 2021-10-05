@@ -1,8 +1,10 @@
 require('dotenv').config()
 require('./getView')
+require('./update')
 
-const { listMenu } = require('./menu')
+const { listMenu, competenceItem } = require('./menu')
 const { Client, Intents } = require('discord.js')
+const update = require('./update')
 
 const BOT_TOKEN = process.env.BOT_TOKEN
 
@@ -26,11 +28,26 @@ client.on('message', function (message) {
 
   if (+command > 0) {
     getView(message, command)
+  } else if (command === 'up') {
+    const competence = commandBody.split(' ')[1]
+    const value = commandBody.split(' ')[2]
+    if (!value || !competence) {
+      message.reply(
+        ` les commandes disponible sont \n ${listMenu('competenceItem')}`
+      )
+      return
+    }
+    console.log(competenceItem[1])
+    message.reply(
+      `${message.member.nickname}, on up ${
+        competenceItem[competence - 1]
+      } au niveau ${value} `
+    )
   } else {
     message.reply(
       `salut ${
         message.member.nickname
-      } les commandes disponible sont \n ${listMenu(message)}`
+      } les commandes disponible sont \n ${listMenu('menuItem')}`
     )
   }
 })
