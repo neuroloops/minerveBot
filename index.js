@@ -10,10 +10,10 @@ const BOT_TOKEN = process.env.BOT_TOKEN
 const base = require('airtable').base(process.env.AIRTABLE_TABLE)
 const prefix = '!'
 
+// setup bot
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 })
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
@@ -27,14 +27,21 @@ client.on('message', function (message) {
   const command = args.shift().toLowerCase()
 
   if (+command > 0) {
+    // check si la commande est un chiffre
+    // et on lance la fonction getView pour chercher les valeur dans airtable
     getView(base, message, command)
   } else if (command === 'up') {
+    // si c'est up, on sort les arguments
+
     const competence = commandBody.split(' ')[1]
     const value = commandBody.split(' ')[2]
     if (!value || !competence) {
+      // commande incomplete: on affiche la liste de compétence
+
       message.reply(` les compétences sont \n ${listMenu('competenceItem')}`)
       return
     }
+    // on a une competence et sa valeur => on update
 
     message.reply(
       `${message.member.nickname}, on up ${
@@ -42,19 +49,21 @@ client.on('message', function (message) {
       } au niveau ${value} `
     )
   } else {
+    // commande invalide , on affiche l'aide
+
     message.reply(
       `salut ${
         message.member.nickname
       } les commandes disponible pour lister par catégorie sont:
 ${listMenu('menuItem')}
 **! + numéro** 
-*ex pour afficher ${menuItem[1]}* : **!2**
+ex **!2** *pour afficher ${menuItem[1]}* 
 ---
 ou pour changer vos compétences:
 ${listMenu('competenceItem')}
 **!up + numéro + valeur**
-*ex pour augmenter ${competenceItem[1]} à 40* : **!up 2 40**
-      `
+ex: **!up 2 40** *pour augmenter ${competenceItem[1]} à 40* 
+`
     )
   }
 })
