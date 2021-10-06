@@ -64,11 +64,15 @@ client.on('message', function (message) {
       `salut ${
         message.member.nickname
       } les commandes disponible pour lister par catégorie sont:
+
+---------------------------------------------------------------------
+
 ${listMenu('menuItem')}
 
-**! + numéro** 
-ex **!2** *pour afficher ${menuItem[1]}* 
----
+**! + numéro**
+ex **!2** *pour afficher ${menuItem[1]}*
+
+---------------------------------------------------------------------
 
 ${listMenu('competenceItem')}
 
@@ -76,7 +80,7 @@ pour changer vos compétences:
 **!up + numéro + valeur**
 ex: **!up 2 40** *pour augmenter ${competenceItem[2 - 1]} à 40*
 
-pour lister les joueur par compétences
+pour lister les joueurs par compétences
 **!comp + numéro + valeur**
 ex: **!comp 15** *pour voir ${competenceItem[15 - 1]}*
 
