@@ -1,3 +1,5 @@
 # minerveBot
 
-Discord bot who is able to curl to airtable database 
+node.js Discord bot who is able to CRUD to airtable database
+
+tool made for new world guild member to track crafting  skills
