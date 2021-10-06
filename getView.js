@@ -1,9 +1,8 @@
-require('dotenv').config()
 const { menuItem } = require('./menu')
 
-module.exports = getView = (message, view) => {
+module.exports = getView = (base, message, view) => {
   view = menuItem[view]
-  const base = require('airtable').base(process.env.AIRTABLE_TABLE)
+
   base('Table 1')
     .select({
       view,
@@ -22,7 +21,6 @@ module.exports = getView = (message, view) => {
       function done(err) {
         if (err) {
           console.error(err)
-
           return
         }
       }

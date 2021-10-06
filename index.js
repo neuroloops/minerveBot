@@ -2,12 +2,12 @@ require('dotenv').config()
 require('./getView')
 require('./update')
 
-const { listMenu, competenceItem } = require('./menu')
+const { listMenu, competenceItem, menuItem } = require('./menu')
 const { Client, Intents } = require('discord.js')
 const update = require('./update')
 
 const BOT_TOKEN = process.env.BOT_TOKEN
-
+const base = require('airtable').base(process.env.AIRTABLE_TABLE)
 const prefix = '!'
 
 const client = new Client({
@@ -27,17 +27,15 @@ client.on('message', function (message) {
   const command = args.shift().toLowerCase()
 
   if (+command > 0) {
-    getView(message, command)
+    getView(base, message, command)
   } else if (command === 'up') {
     const competence = commandBody.split(' ')[1]
     const value = commandBody.split(' ')[2]
     if (!value || !competence) {
-      message.reply(
-        ` les commandes disponible sont \n ${listMenu('competenceItem')}`
-      )
+      message.reply(` les compétences sont \n ${listMenu('competenceItem')}`)
       return
     }
-    console.log(competenceItem[1])
+
     message.reply(
       `${message.member.nickname}, on up ${
         competenceItem[competence - 1]
@@ -47,7 +45,16 @@ client.on('message', function (message) {
     message.reply(
       `salut ${
         message.member.nickname
-      } les commandes disponible sont \n ${listMenu('menuItem')}`
+      } les commandes disponible pour lister par catégorie sont:
+${listMenu('menuItem')}
+**! + numéro** 
+*ex pour afficher ${menuItem[1]}* : **!2**
+---
+ou pour changer vos compétences:
+${listMenu('competenceItem')}
+**!up + numéro + valeur**
+*ex pour augmenter ${competenceItem[1]} à 40* : **!up 2 40**
+      `
     )
   }
 })

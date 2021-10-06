@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const menuItem = ['Fabrication', 'Transformation', 'Exploitation']
 const competenceItem = [
   'Armes',
@@ -35,7 +33,7 @@ module.exports.listMenu = menu => {
 
   menu.map(item => {
     const index = menu.indexOf(item) + 1
-    const temp = `[${index}]: ${item}, `
+    const temp = `[**${index}**]: ${item} **|** `
     items.push(temp)
   })
   const menuWithIndex = items.join('')
