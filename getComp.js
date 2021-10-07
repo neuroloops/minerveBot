@@ -7,7 +7,7 @@ module.exports = getComp = (base, message, id) => {
   base('Table 1')
     .select({
       view: 'Tous (sort A_Z)',
-      // fields: ['Name', 'Armes'],
+      sort: [{ field: item, direction: 'desc' }],
     })
     .eachPage(
       function page(records, fetchNextPage) {

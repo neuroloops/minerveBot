@@ -81,7 +81,7 @@ pour changer vos compétences:
 ex: **!up 2 40** *pour augmenter ${competenceItem[2 - 1]} à 40*
 
 pour lister les joueurs par compétences
-**!comp + numéro + valeur**
+**!comp + numéro **
 ex: **!comp 15** *pour voir ${competenceItem[15 - 1]}*
 
 `
