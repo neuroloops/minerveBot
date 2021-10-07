@@ -49,7 +49,7 @@ module.exports = getView = (base, message, view) => {
             )
           }
         })
-
+        //doit splitte l'array en 10 ligne, pour être en dessous de la limite des 2000 character de discord
         const howManyInTen = Math.ceil(items.length / 10)
 
         let from = 0

@@ -18,7 +18,7 @@ module.exports = getComp = (base, message, id) => {
           }
         })
         message.reply(
-          `compétence ${competenceItem[id - 1]} \n ${items.join('')}`
+          `__compétence **${competenceItem[id - 1]}**:__ \n${items.join('')}`
         )
         fetchNextPage()
       },
