@@ -1,8 +1,4 @@
-const { menuItem } = require('./menu')
-
 module.exports = getView = (base, message, view) => {
-  // view = menuItem[view]
-
   base('Table 1')
     .select({
       view: 'Tous (sort A_Z)',
@@ -17,31 +13,45 @@ module.exports = getView = (base, message, view) => {
                 'Armes'
               )} |**  Armures : **${record.get(
                 'Armures'
-              )} |**  Armures : **${record.get(
-                'Armures'
-              )} |** Armures : **${record.get(
-                'Armures'
-              )} |** Armures : **${record.get(
-                'Armures'
-              )} |** Armures : **${record.get(
-                'Armures'
-              )} |** Armures : **${record.get('Armures')} |** \n`
+              )} |**  Ingénierie : **${record.get(
+                'Ingénierie'
+              )} |** Joaillerie : **${record.get(
+                'Joaillerie'
+              )} |** Arts Obscurs : **${record.get(
+                'Arts Obscurs'
+              )} |** Cuisine : **${record.get(
+                'Cuisine'
+              )} |** Ameublement : **${record.get('Ameublement')} |** \n`
             )
           } else if (+view == 2) {
             items.push(
-              `${record.get('Name')} => \n truc : **${record.get(
-                'Armures'
-              )} |**  ${record.fields} \n`
+              `${record.get('Name')} ** =>** Fonderie : **${record.get(
+                'Fonderie'
+              )} |**  Menuiserie : **${record.get(
+                'Menuiserie'
+              )} |**  Tannerie : **${record.get(
+                'Tannerie'
+              )} |** Tissage : **${record.get(
+                'Tissage'
+              )} |** Taille : **${record.get('Taille')} |** \n`
             )
-            // message.reply(`${items.join('')} `)
+          } else if (+view == 3) {
+            items.push(
+              `${record.get('Name')} ** =>** Abattage : **${record.get(
+                'Abattage'
+              )} |**  Minage : **${record.get(
+                'Minage'
+              )} |**  Peche : **${record.get(
+                'Peche'
+              )} |** Récolte : **${record.get(
+                'Récolte'
+              )} |** Dépeçage : **${record.get('Dépeçage')} |** \n`
+            )
           }
         })
 
-        // message.reply(`salut`)
-        console.log(items.length / 10)
         const howManyInTen = Math.ceil(items.length / 10)
-        console.log(howManyInTen)
-        console.log(items.slice(0, 10))
+
         let from = 0
         let to = 10
 
@@ -49,7 +59,6 @@ module.exports = getView = (base, message, view) => {
           message.reply(`${items.slice(from, to).join('')} `)
           from += 10
           to += 10
-          console.log('coucou')
         }
         fetchNextPage()
       },
