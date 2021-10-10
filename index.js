@@ -26,60 +26,33 @@ client.on('message', function (message) {
   const args = commandBody.split(' ')
   const command = args.shift().toLowerCase()
 
-  if (+command > 0) {
-    // check si la commande est un chiffre
-    // et on lance la fonction getView pour chercher les valeur dans airtable
-    getView(base, message, command)
-  } else if (command === 'up') {
-    // si c'est up, on sort les arguments
-
-    const competence = commandBody.split(' ')[1]
-    const value = commandBody.split(' ')[2]
-    if (!value || !competence) {
-      // commande incomplete: on affiche la liste de compétence
-
-      message.reply(` les compétences sont \n ${listMenu('competenceItem')}`)
-      return
-    }
-    // on a une competence et sa valeur => on update
-
-    message.reply(
-      `${message.member.nickname}, on up ${
-        competenceItem[competence - 1]
-      } au niveau ${value} `
-    )
-  } else if (command === 'comp') {
+  if (command === 'liste') {
     const value = commandBody.split(' ')[1]
     if (!value) {
       // commande incomplete: on affiche la liste de compétence
 
-      message.reply(` les compétences sont \n ${listMenu('competenceItem')}`)
+      help(message)
       return
     }
     getComp(base, message, value)
   } else {
     // commande invalide , on affiche l'aide
-
-    message.reply(
-      `salut ${
-        message.member.nickname
-      } les commandes disponible pour lister par catégorie sont:
-
----------------------------------------------------------------------
-
-${listMenu('menuItem')}
-
-**! + numéro**
-ex **!2** *pour afficher ${menuItem[1]}*
-
----------------------------------------------------------------------
-
-pour lister les joueurs par compétences
-**!comp + numéro **
-ex: **!comp 15** *pour voir ${competenceItem[15 - 1]}*
-
-`
-    )
+    help(message)
   }
 })
+
+const help = message => {
+  message.reply(
+    `salut ${
+      message.member.nickname
+    } les commandes disponible pour lister les joueurs par compétences:
+
+    ${listMenu('competenceItem')}
+
+**!liste + numéro **
+ex: **!liste 15** *pour voir ${competenceItem[15 - 1]}*
+
+`
+  )
+}
 client.login(BOT_TOKEN)
