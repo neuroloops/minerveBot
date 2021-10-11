@@ -8,7 +8,7 @@ const { Client, Intents } = require('discord.js')
 
 const BOT_TOKEN = process.env.BOT_TOKEN
 const base = require('airtable').base(process.env.AIRTABLE_TABLE)
-const prefix = '!minerve'
+const prefix = '!minerve '
 
 // setup bot
 const client = new Client({
@@ -20,12 +20,12 @@ client.on('ready', () => {
 
 client.on('message', function (message) {
   if (message.author.bot) return
+
   if (!message.content.startsWith(prefix)) return
 
   const commandBody = message.content.slice(prefix.length)
   const args = commandBody.split(' ')
   const command = args.shift().toLowerCase()
-
   if (command === 'liste') {
     const value = commandBody.split(' ')[1]
     if (!value) {
