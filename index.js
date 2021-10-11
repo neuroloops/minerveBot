@@ -8,7 +8,7 @@ const { Client, Intents } = require('discord.js')
 
 const BOT_TOKEN = process.env.BOT_TOKEN
 const base = require('airtable').base(process.env.AIRTABLE_TABLE)
-const prefix = '!'
+const prefix = '!minerve'
 
 // setup bot
 const client = new Client({
