@@ -35,7 +35,7 @@ client.on('message', function (message) {
       return
     }
     getComp(base, message, value)
-  } else {
+  } else if (command === 'help') {
     // commande invalide , on affiche l'aide
     help(message)
   }
