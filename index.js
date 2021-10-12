@@ -28,6 +28,7 @@ client.on('message', function (message) {
   const command = args.shift().toLowerCase()
   if (command === 'liste') {
     const value = commandBody.split(' ')[1]
+    console.log(value)
     if (!value) {
       // commande incomplete: on affiche la liste de compétence
 

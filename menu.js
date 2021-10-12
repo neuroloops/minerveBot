@@ -14,7 +14,7 @@ const competenceItem = [
   'Taille',
   'Abattage',
   'Minage',
-  'Peche',
+  'Pêche',
   'Récolte',
   'Dépeçage',
 ]
