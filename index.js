@@ -50,8 +50,8 @@ const help = message => {
 
     ${listMenu('competenceItem')}
 
-**!liste + numéro **
-ex: **!liste 15** *pour voir ${competenceItem[15 - 1]}*
+**${prefix}liste + numéro **
+ex: **${prefix}liste 15** *pour voir ${competenceItem[15 - 1]}*
 
 `
   )
